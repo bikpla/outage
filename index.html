@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bikpla.net - Service Status</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      padding: 1.5rem 0;
+      margin-bottom: 2rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    header h1 {
+      font-size: 24px;
+      font-weight: 500;
+      color: #1B6176;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 13px;
+      color: #666;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .status-card {
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .status-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #d32f2f;
+      animation: pulse 2s infinite;
+    }
+
+    .status-dot.monitoring {
+      background: #f57c00;
+      animation: none;
+    }
+
+    .status-dot.resolved {
+      background: #388e3c;
+      animation: none;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .status-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: #d32f2f;
+    }
+
+    .status-text.monitoring {
+      color: #f57c00;
+    }
+
+    .status-text.resolved {
+      color: #388e3c;
+    }
+
+    .version-badge {
+      font-size: 12px;
+      color: #666;
+      background: #f0f0f0;
+      padding: 0.35rem 0.75rem;
+      border-radius: 4px;
+    }
+
+    .status-card h2 {
+      margin: 0 0 0.5rem 0;
+      font-size: 22px;
+      font-weight: 500;
+      color: #1B6176;
+    }
+
+    .status-card > p {
+      margin: 0 0 1.5rem 0;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #666;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #999;
+    }
+
+    .info-grid {
+      background: #f9f9f9;
+      border-radius: 4px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .info-item p:first-child {
+      font-size: 12px;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.5rem;
+    }
+
+    .info-item p:last-child {
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    h3 {
+      margin: 1.5rem 0 1rem 0;
+      font-size: 16px;
+      font-weight: 500;
+      color: #1B6176;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    ul li {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      color: #333;
+    }
+
+    ul li:last-child {
+      border-bottom: none;
+    }
+
+    .status-indicator-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .dot-danger {
+      background: #d32f2f;
+    }
+
+    .dot-warning {
+      background: #f57c00;
+    }
+
+    .dot-success {
+      background: #388e3c;
+    }
+
+    .what-doing {
+      background: #f9f9f9;
+      border-radius: 4px;
+      padding: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .what-doing h4 {
+      margin: 0 0 0.5rem 0;
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .what-doing ul {
+      list-style: disc;
+      padding: 0 0 0 1.5rem;
+    }
+
+    .what-doing ul li {
+      border: none;
+      padding: 0.4rem 0;
+      display: list-item;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .contact-footer {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #eee;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .controls-card {
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      padding: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .controls-card h3 {
+      margin-top: 0;
+    }
+
+    .controls-card > p {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 0.5rem;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #1B6176;
+      box-shadow: 0 0 0 2px rgba(27, 97, 118, 0.2);
+    }
+
+    .changelog-box {
+      background: #f9f9f9;
+      border-radius: 4px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .changelog-box p {
+      font-size: 13px;
+      color: #666;
+      font-weight: 500;
+      margin: 0 0 0.5rem 0;
+    }
+
+    .changelog-box div {
+      font-size: 12px;
+      color: #666;
+      max-height: 150px;
+      overflow-y: auto;
+      font-family: 'Monaco', 'Menlo', monospace;
+      line-height: 1.5;
+    }
+
+    button {
+      padding: 0.625rem 1.25rem;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      background: #fff;
+      color: #333;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-right: 0.5rem;
+    }
+
+    button:hover {
+      background: #f5f5f5;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>bikpla.net</h1>
+      <p>Service Status</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="status-card">
+      <div class="status-header">
+        <div class="status-indicator">
+          <div class="status-dot" id="status-dot"></div>
+          <span class="status-text" id="status-text">Active Outage</span>
+        </div>
+        <div class="version-badge" id="version-badge">v2026-06-22-01</div>
+      </div>
+
+      <h2>Internet Service Outage – Port Moresby & Sydney</h2>
+      <p class="subtitle">Primary fibre and MetroE services affected</p>
+
+      <p>We are currently managing an outage affecting our primary Internet connection at our Port Moresby PoP. Our technical team is actively working to restore full capacity.</p>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <p>Last Updated</p>
+          <p id="last-update">June 22, 2026 at 14:32 UTC+10</p>
+        </div>
+        <div class="info-item">
+          <p>Estimated Resolution</p>
+          <p id="eta">TBD – monitoring restoration efforts</p>
+        </div>
+      </div>
+
+      <h3>Affected Services</h3>
+      <ul>
+        <li>
+          <span class="status-indicator-dot dot-danger"></span>
+          <span>Primary Internet Fibre Connection (Port Moresby PoP)</span>
+        </li>
+        <li>
+          <span class="status-indicator-dot dot-warning"></span>
+          <span>MetroE (L2) Services – Performance Impacted (Burns Peak)</span>
+        </li>
+        <li>
+          <span class="status-indicator-dot dot-danger"></span>
+          <span>Australian Entertainment Content Distribution</span>
+        </li>
+      </ul>
+
+      <div class="what-doing">
+        <h4>What We're Doing</h4>
+        <ul>
+          <li>Working closely with Dataco PNG to restore primary fibre connection</li>
+          <li>Addressing intermittent power issue at Burns Peak affecting MetroE performance</li>
+          <li>Routing backup traffic via WISP and dual satellite providers</li>
+        </ul>
+      </div>
+
+      <div class="contact-footer">
+        <p>For support inquiries: support@bikpla.net | Phone: +675 303 6500</p>
+      </div>
+    </div>
+
+    <div class="controls-card">
+      <h3>Status Update Controls</h3>
+      <p>Internal use only — increments version on each update</p>
+
+      <div class="form-grid">
+        <div>
+          <label>Status</label>
+          <select id="status-select">
+            <option value="active" selected>Active Outage</option>
+            <option value="monitoring">Monitoring / Partial</option>
+            <option value="resolved">Resolved</option>
+          </select>
+        </div>
+        <div>
+          <label>Time (UTC+10)</label>
+          <input type="time" id="update-time">
+        </div>
+      </div>
+
+      <div>
+        <label>ETA (if known)</label>
+        <input type="text" id="eta-input" placeholder="e.g. 16:30 UTC+10 or TBD">
+      </div>
+
+      <div>
+        <label>Status Message</label>
+        <textarea id="status-message">We are currently managing an outage affecting our primary Internet connection at our Port Moresby PoP. Our technical team is actively working to restore full capacity.</textarea>
+      </div>
+
+      <div class="changelog-box">
+        <p>Changelog Preview</p>
+        <div id="changelog">
+          <div>v2026-06-22-01 | 14:32 UTC+10 | Active Outage</div>
+        </div>
+      </div>
+
+      <button onclick="publishUpdate()">Publish Update</button>
+      <button onclick="exportHTML()">Export HTML</button>
+    </div>
+  </main>
+
+  <script>
+    let versionCounter = 1;
+    let changelog = ['v2026-06-22-01 | 14:32 UTC+10 | Active Outage'];
+
+    function publishUpdate() {
+      const status = document.getElementById('status-select').value;
+      const time = document.getElementById('update-time').value;
+      const eta = document.getElementById('eta-input').value || 'TBD – monitoring restoration efforts';
+      const message = document.getElementById('status-message').value;
+
+      const statusDot = document.getElementById('status-dot');
+      const statusText = document.getElementById('status-text');
+      const versionBadge = document.getElementById('version-badge');
+
+      const statusLabels = {
+        active: 'Active Outage',
+        monitoring: 'Monitoring / Partial',
+        resolved: 'Resolved'
+      };
+
+      const statusColors = {
+        active: '#d32f2f',
+        monitoring: '#f57c00',
+        resolved: '#388e3c'
+      };
+
+      const statusClasses = {
+        active: '',
+        monitoring: 'monitoring',
+        resolved: 'resolved'
+      };
+
+      statusDot.style.background = statusColors[status];
+      statusDot.className = 'status-dot ' + statusClasses[status];
+      statusText.textContent = statusLabels[status];
+      statusText.className = 'status-text ' + statusClasses[status];
+
+      document.getElementById('eta').textContent = eta;
+
+      const now = new Date();
+      const today = now.toLocaleDateString('en-AU', { year: 'numeric', month: 'long', day: 'numeric' });
+      const timeStr = time ? time : now.toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit', timeZone: 'Australia/Brisbane' });
+      document.getElementById('last-update').textContent = today + ' at ' + timeStr + ' UTC+10';
+
+      versionCounter++;
+      const newVersion = 'v2026-06-22-' + String(versionCounter).padStart(2, '0');
+      versionBadge.textContent = newVersion;
+
+      const changeEntry = newVersion + ' | ' + timeStr + ' UTC+10 | ' + statusLabels[status];
+      changelog.unshift(changeEntry);
+
+      const changelogDiv = document.getElementById('changelog');
+      changelogDiv.innerHTML = changelog.map(function(entry) { return '<div>' + entry + '</div>'; }).join('');
+
+      alert('✓ Update published: ' + newVersion + '\n\nStatus: ' + statusLabels[status] + '\nTime: ' + timeStr + ' UTC+10\n\nRemember to export and re-upload the HTML file to your site.');
+    }
+
+    function exportHTML() {
+      const html = document.documentElement.outerHTML;
+      const blob = new Blob([html], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'bikpla-outage-status_' + new Date().toISOString().slice(0, 10) + '.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    document.getElementById('update-time').valueAsDate = new Date();
+  </script>
+</body>
+</html>

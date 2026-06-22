@@ -266,22 +266,22 @@
           <div class="status-dot monitoring" id="status-dot"></div>
           <span class="status-text monitoring" id="status-text">Monitoring / Partial</span>
         </div>
-        <div class="version-badge" id="version-badge">v2026-06-22-03</div>
+        <div class="version-badge" id="version-badge">v2026-06-22-04</div>
       </div>
 
       <h2>Internet Service Outage – Port Moresby & Sydney</h2>
       <p class="subtitle">Primary fibre and MetroE services affected</p>
 
-      <p>Primary fibre connection has been restored. Internet, MetroE L2, and Sydney services are now fully operational. Our technical team is completing redundancy provisioning work at Burns Peak to ensure full system resilience.</p>
+      <p>Primary fibre connection has been restored. Internet, MetroE L2, and Sydney services are fully operational. Burns Peak equipment upgrade has been deferred until tomorrow due to high winds at the tower. Services remain stable and operational.</p>
 
       <div class="info-grid">
         <div class="info-item">
           <p>Last Updated</p>
-          <p id="last-update">June 22, 2026 at 18:00 UTC+10</p>
+          <p id="last-update">June 22, 2026 at 16:25 PGT</p>
         </div>
         <div class="info-item">
           <p>Estimated Resolution</p>
-          <p id="eta">19:30 UTC+10 – Burns Peak redundancy in progress</p>
+          <p id="eta">Tomorrow – Burns Peak work deferred due to high winds</p>
         </div>
       </div>
 
@@ -301,22 +301,22 @@
         </li>
         <li>
           <span class="status-indicator-dot dot-warning"></span>
-          <span>Burns Peak Redundancy – In Progress</span>
+          <span>Burns Peak Equipment Upgrade – Deferred until tomorrow (high winds)</span>
         </li>
       </ul>
 
       <div class="what-doing">
         <h4>What We're Doing</h4>
         <ul>
-          <li>Primary fibre connection restored and stable</li>
-          <li>All core services (Internet, MetroE L2, Sydney traffic) operational</li>
-          <li>Completing redundancy provisioning work at Burns Peak for full system resilience</li>
+          <li>All core services (Internet, MetroE L2, Sydney traffic) fully operational</li>
+          <li>Primary fibre connection stable</li>
+          <li>Burns Peak equipment upgrade deferred until tomorrow due to high winds</li>
           <li>Monitoring all links for optimal performance</li>
         </ul>
       </div>
 
       <div class="contact-footer">
-        <p>For support inquiries: support@bikpla.net | Phone: +675 303 6500</p>
+        <p>For support inquiries: support@bikpla.net | Phone: +675 303 6502</p>
       </div>
     </div>
 
@@ -334,14 +334,14 @@
           </select>
         </div>
         <div>
-          <label>Time (UTC+10)</label>
+          <label>Time (PGT)</label>
           <input type="time" id="update-time">
         </div>
       </div>
 
       <div>
         <label>ETA (if known)</label>
-        <input type="text" id="eta-input" placeholder="e.g. 16:30 UTC+10 or TBD">
+        <input type="text" id="eta-input" placeholder="e.g. 16:30 PGT or TBD">
       </div>
 
       <div>
@@ -352,9 +352,10 @@
       <div class="changelog-box">
         <p>Changelog Preview</p>
         <div id="changelog">
-          <div>v2026-06-22-03 | 18:00 UTC+10 | Monitoring / Partial – Fibre restored, services operational</div>
-          <div>v2026-06-22-02 | 16:45 UTC+10 | Active Outage – Technicians on site, Sydney link restored</div>
-          <div>v2026-06-22-01 | 14:32 UTC+10 | Active Outage</div>
+          <div>v2026-06-22-04 | 16:25 PGT | Monitoring / Partial – Burns Peak work deferred due to high winds</div>
+          <div>v2026-06-22-03 | 18:00 PGT | Monitoring / Partial – Fibre restored, services operational</div>
+          <div>v2026-06-22-02 | 16:45 PGT | Active Outage – Technicians on site, Sydney link restored</div>
+          <div>v2026-06-22-01 | 14:32 PGT | Active Outage</div>
         </div>
       </div>
 
@@ -364,8 +365,8 @@
   </main>
 
   <script>
-    let versionCounter = 3;
-    let changelog = ['v2026-06-22-03 | 18:00 UTC+10 | Monitoring / Partial – Fibre restored, services operational, redundancy in progress', 'v2026-06-22-02 | 16:45 UTC+10 | Active Outage – Technicians on site, Sydney link restored', 'v2026-06-22-01 | 14:32 UTC+10 | Active Outage'];
+    let versionCounter = 4;
+    let changelog = ['v2026-06-22-04 | 16:25 PGT | Monitoring / Partial – Burns Peak work deferred due to high winds', 'v2026-06-22-03 | 18:00 PGT | Monitoring / Partial – Fibre restored, services operational, redundancy in progress', 'v2026-06-22-02 | 16:45 PGT | Active Outage – Technicians on site, Sydney link restored', 'v2026-06-22-01 | 14:32 PGT | Active Outage'];
 
     function publishUpdate() {
       const status = document.getElementById('status-select').value;
@@ -405,19 +406,19 @@
       const now = new Date();
       const today = now.toLocaleDateString('en-AU', { year: 'numeric', month: 'long', day: 'numeric' });
       const timeStr = time ? time : now.toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit', timeZone: 'Australia/Brisbane' });
-      document.getElementById('last-update').textContent = today + ' at ' + timeStr + ' UTC+10';
+      document.getElementById('last-update').textContent = today + ' at ' + timeStr + ' PGT';
 
       versionCounter++;
       const newVersion = 'v2026-06-22-' + String(versionCounter).padStart(2, '0');
       versionBadge.textContent = newVersion;
 
-      const changeEntry = newVersion + ' | ' + timeStr + ' UTC+10 | ' + statusLabels[status];
+      const changeEntry = newVersion + ' | ' + timeStr + ' PGT | ' + statusLabels[status];
       changelog.unshift(changeEntry);
 
       const changelogDiv = document.getElementById('changelog');
       changelogDiv.innerHTML = changelog.map(function(entry) { return '<div>' + entry + '</div>'; }).join('');
 
-      alert('✓ Update published: ' + newVersion + '\n\nStatus: ' + statusLabels[status] + '\nTime: ' + timeStr + ' UTC+10\n\nRemember to commit and push to GitHub.');
+      alert('✓ Update published: ' + newVersion + '\n\nStatus: ' + statusLabels[status] + '\nTime: ' + timeStr + ' PGT\n\nRemember to commit and push to GitHub.');
     }
 
     function exportHTML() {

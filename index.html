@@ -85,6 +85,11 @@
       animation: none;
     }
 
+    .status-dot.orange {
+      background: #f57c00;
+      animation: none;
+    }
+
     .status-dot.resolved {
       background: #388e3c;
       animation: none;
@@ -258,51 +263,55 @@
     <div class="status-card">
       <div class="status-header">
         <div class="status-indicator">
-          <div class="status-dot" id="status-dot"></div>
-          <span class="status-text" id="status-text">Active Outage</span>
+          <div class="status-dot monitoring" id="status-dot"></div>
+          <span class="status-text monitoring" id="status-text">Monitoring / Partial</span>
         </div>
-        <div class="version-badge" id="version-badge">v2026-06-22-02</div>
+        <div class="version-badge" id="version-badge">v2026-06-22-03</div>
       </div>
 
       <h2>Internet Service Outage – Port Moresby & Sydney</h2>
       <p class="subtitle">Primary fibre and MetroE services affected</p>
 
-      <p>Fibre technicians are on site working on restoration efforts. Sydney to Port Moresby traffic has been reinstated on backup links, though congestion may continue. We are provisioning bonded satellite services for additional capacity, and MetroE L2 services restoration is in progress at Burns Peak.</p>
+      <p>Primary fibre connection has been restored. Internet, MetroE L2, and Sydney services are now fully operational. Our technical team is completing redundancy provisioning work at Burns Peak to ensure full system resilience.</p>
 
       <div class="info-grid">
         <div class="info-item">
           <p>Last Updated</p>
-          <p id="last-update">June 22, 2026 at 16:45 UTC+10</p>
+          <p id="last-update">June 22, 2026 at 18:00 UTC+10</p>
         </div>
         <div class="info-item">
           <p>Estimated Resolution</p>
-          <p id="eta">Estimating 18:30 UTC+10 – technicians on site</p>
+          <p id="eta">19:30 UTC+10 – Burns Peak redundancy in progress</p>
         </div>
       </div>
 
-      <h3>Affected Services</h3>
+      <h3>Service Status</h3>
       <ul>
         <li>
-          <span class="status-indicator-dot dot-danger"></span>
-          <span>Primary Internet Fibre Connection (Port Moresby PoP)</span>
+          <span class="status-indicator-dot dot-success"></span>
+          <span>Primary Internet Fibre Connection (Port Moresby PoP) – RESTORED</span>
+        </li>
+        <li>
+          <span class="status-indicator-dot dot-success"></span>
+          <span>MetroE (L2) Services – OPERATIONAL</span>
+        </li>
+        <li>
+          <span class="status-indicator-dot dot-success"></span>
+          <span>Australian Entertainment Content Distribution – OPERATIONAL</span>
         </li>
         <li>
           <span class="status-indicator-dot dot-warning"></span>
-          <span>MetroE (L2) Services – Performance Impacted (Burns Peak)</span>
-        </li>
-        <li>
-          <span class="status-indicator-dot dot-danger"></span>
-          <span>Australian Entertainment Content Distribution</span>
+          <span>Burns Peak Redundancy – In Progress</span>
         </li>
       </ul>
 
       <div class="what-doing">
         <h4>What We're Doing</h4>
         <ul>
-          <li>Fibre technicians on site working on primary connection restoration</li>
-          <li>Sydney to Port Moresby traffic restored on backup links (congestion management ongoing)</li>
-          <li>Provisioning bonded satellite services for additional capacity</li>
-          <li>MetroE L2 services restoration in progress at Burns Peak</li>
+          <li>Primary fibre connection restored and stable</li>
+          <li>All core services (Internet, MetroE L2, Sydney traffic) operational</li>
+          <li>Completing redundancy provisioning work at Burns Peak for full system resilience</li>
+          <li>Monitoring all links for optimal performance</li>
         </ul>
       </div>
 
@@ -343,6 +352,7 @@
       <div class="changelog-box">
         <p>Changelog Preview</p>
         <div id="changelog">
+          <div>v2026-06-22-03 | 18:00 UTC+10 | Monitoring / Partial – Fibre restored, services operational</div>
           <div>v2026-06-22-02 | 16:45 UTC+10 | Active Outage – Technicians on site, Sydney link restored</div>
           <div>v2026-06-22-01 | 14:32 UTC+10 | Active Outage</div>
         </div>
@@ -354,8 +364,8 @@
   </main>
 
   <script>
-    let versionCounter = 2;
-    let changelog = ['v2026-06-22-02 | 16:45 UTC+10 | Active Outage – Technicians on site, Sydney link restored', 'v2026-06-22-01 | 14:32 UTC+10 | Active Outage'];
+    let versionCounter = 3;
+    let changelog = ['v2026-06-22-03 | 18:00 UTC+10 | Monitoring / Partial – Fibre restored, services operational, redundancy in progress', 'v2026-06-22-02 | 16:45 UTC+10 | Active Outage – Technicians on site, Sydney link restored', 'v2026-06-22-01 | 14:32 UTC+10 | Active Outage'];
 
     function publishUpdate() {
       const status = document.getElementById('status-select').value;

@@ -242,99 +242,7 @@
     }
 
     .controls-card {
-      background: #fff;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-      padding: 1.5rem;
-      margin-bottom: 3rem;
-    }
-
-    .controls-card h3 {
-      margin-top: 0;
-    }
-
-    .controls-card > p {
-      font-size: 13px;
-      color: #666;
-      margin-bottom: 1rem;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    label {
-      display: block;
-      font-size: 13px;
-      color: #666;
-      margin-bottom: 0.5rem;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 0.5rem;
-      border-radius: 4px;
-      border: 1px solid #ddd;
-      font-size: 14px;
-      font-family: Arial, sans-serif;
-    }
-
-    textarea {
-      min-height: 80px;
-      resize: vertical;
-    }
-
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: #1B6176;
-      box-shadow: 0 0 0 2px rgba(27, 97, 118, 0.2);
-    }
-
-    .changelog-box {
-      background: #f9f9f9;
-      border-radius: 4px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .changelog-box p {
-      font-size: 13px;
-      color: #666;
-      font-weight: 500;
-      margin: 0 0 0.5rem 0;
-    }
-
-    .changelog-box div {
-      font-size: 12px;
-      color: #666;
-      max-height: 150px;
-      overflow-y: auto;
-      font-family: 'Monaco', 'Menlo', monospace;
-      line-height: 1.5;
-    }
-
-    button {
-      padding: 0.625rem 1.25rem;
-      border-radius: 4px;
-      border: 1px solid #ddd;
-      background: #fff;
-      color: #333;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.2s;
-      margin-right: 0.5rem;
-    }
-
-    button:hover {
-      background: #f5f5f5;
-    }
-
-    button:active {
-      transform: scale(0.98);
+      display: none;
     }
   </style>
 </head>
@@ -353,22 +261,22 @@
           <div class="status-dot" id="status-dot"></div>
           <span class="status-text" id="status-text">Active Outage</span>
         </div>
-        <div class="version-badge" id="version-badge">v2026-06-22-01</div>
+        <div class="version-badge" id="version-badge">v2026-06-22-02</div>
       </div>
 
       <h2>Internet Service Outage – Port Moresby & Sydney</h2>
       <p class="subtitle">Primary fibre and MetroE services affected</p>
 
-      <p>We are currently managing an outage affecting our primary Internet connection at our Port Moresby PoP. Our technical team is actively working to restore full capacity.</p>
+      <p>Fibre technicians are on site working on restoration efforts. Sydney to Port Moresby traffic has been reinstated on backup links, though congestion may continue. We are provisioning bonded satellite services for additional capacity, and MetroE L2 services restoration is in progress at Burns Peak.</p>
 
       <div class="info-grid">
         <div class="info-item">
           <p>Last Updated</p>
-          <p id="last-update">June 22, 2026 at 14:32 UTC+10</p>
+          <p id="last-update">June 22, 2026 at 16:45 UTC+10</p>
         </div>
         <div class="info-item">
           <p>Estimated Resolution</p>
-          <p id="eta">TBD – monitoring restoration efforts</p>
+          <p id="eta">Estimating 18:30 UTC+10 – technicians on site</p>
         </div>
       </div>
 
@@ -391,9 +299,10 @@
       <div class="what-doing">
         <h4>What We're Doing</h4>
         <ul>
-          <li>Working closely with Dataco PNG to restore primary fibre connection</li>
-          <li>Addressing intermittent power issue at Burns Peak affecting MetroE performance</li>
-          <li>Routing backup traffic via WISP and dual satellite providers</li>
+          <li>Fibre technicians on site working on primary connection restoration</li>
+          <li>Sydney to Port Moresby traffic restored on backup links (congestion management ongoing)</li>
+          <li>Provisioning bonded satellite services for additional capacity</li>
+          <li>MetroE L2 services restoration in progress at Burns Peak</li>
         </ul>
       </div>
 
@@ -434,6 +343,7 @@
       <div class="changelog-box">
         <p>Changelog Preview</p>
         <div id="changelog">
+          <div>v2026-06-22-02 | 16:45 UTC+10 | Active Outage – Technicians on site, Sydney link restored</div>
           <div>v2026-06-22-01 | 14:32 UTC+10 | Active Outage</div>
         </div>
       </div>
@@ -444,8 +354,8 @@
   </main>
 
   <script>
-    let versionCounter = 1;
-    let changelog = ['v2026-06-22-01 | 14:32 UTC+10 | Active Outage'];
+    let versionCounter = 2;
+    let changelog = ['v2026-06-22-02 | 16:45 UTC+10 | Active Outage – Technicians on site, Sydney link restored', 'v2026-06-22-01 | 14:32 UTC+10 | Active Outage'];
 
     function publishUpdate() {
       const status = document.getElementById('status-select').value;
@@ -497,7 +407,7 @@
       const changelogDiv = document.getElementById('changelog');
       changelogDiv.innerHTML = changelog.map(function(entry) { return '<div>' + entry + '</div>'; }).join('');
 
-      alert('✓ Update published: ' + newVersion + '\n\nStatus: ' + statusLabels[status] + '\nTime: ' + timeStr + ' UTC+10\n\nRemember to export and re-upload the HTML file to your site.');
+      alert('✓ Update published: ' + newVersion + '\n\nStatus: ' + statusLabels[status] + '\nTime: ' + timeStr + ' UTC+10\n\nRemember to commit and push to GitHub.');
     }
 
     function exportHTML() {
@@ -506,7 +416,7 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'bikpla-outage-status_' + new Date().toISOString().slice(0, 10) + '.html';
+      a.download = 'index.html';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

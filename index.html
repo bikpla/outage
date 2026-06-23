@@ -263,25 +263,25 @@
     <div class="status-card">
       <div class="status-header">
         <div class="status-indicator">
-          <div class="status-dot monitoring" id="status-dot"></div>
-          <span class="status-text monitoring" id="status-text">Monitoring / Partial</span>
+          <div class="status-dot" id="status-dot"></div>
+          <span class="status-text" id="status-text">Active Outage</span>
         </div>
-        <div class="version-badge" id="version-badge">v2026-06-22-04</div>
+        <div class="version-badge" id="version-badge">v2026-06-23-01</div>
       </div>
 
       <h2>Internet Service Outage – Port Moresby & Sydney</h2>
       <p class="subtitle">Primary fibre and MetroE services affected</p>
 
-      <p>Primary fibre connection has been restored. Internet, MetroE L2, and Sydney services are fully operational. Burns Peak equipment upgrade has been deferred until tomorrow due to high winds at the tower. Services remain stable and operational.</p>
+      <p>Primary fibre connection and fibre MetroE services are fully operational. Scheduled tower climb and equipment installation at Burns Peak is commencing at 12:00 today (midday). WISP MetroE connections will be unavailable from 12:00 to 14:00 PGT, affecting Gerehu, 2Mile, Konedobu, Motukea, Deugro, and Tubuseria.</p>
 
       <div class="info-grid">
         <div class="info-item">
           <p>Last Updated</p>
-          <p id="last-update">June 22, 2026 at 16:25 PGT</p>
+          <p id="last-update">June 23, 2026 at 11:22 PGT</p>
         </div>
         <div class="info-item">
           <p>Estimated Resolution</p>
-          <p id="eta">Tomorrow – Burns Peak work deferred due to high winds</p>
+          <p id="eta">Today 14:00 PGT – WISP MetroE outage window 12:00-14:00</p>
         </div>
       </div>
 
@@ -289,29 +289,29 @@
       <ul>
         <li>
           <span class="status-indicator-dot dot-success"></span>
-          <span>Primary Internet Fibre Connection (Port Moresby PoP) – RESTORED</span>
+          <span>Primary Internet Fibre Connection – OPERATIONAL</span>
         </li>
         <li>
           <span class="status-indicator-dot dot-success"></span>
-          <span>MetroE (L2) Services – OPERATIONAL</span>
+          <span>Fibre MetroE Services – OPERATIONAL (will remain functioning)</span>
+        </li>
+        <li>
+          <span class="status-indicator-dot dot-danger"></span>
+          <span>WISP MetroE Connections – OUTAGE TODAY 12:00-14:00 PGT (Gerehu, 2Mile, Konedobu, Motukea, Deugro, Tubuseria)</span>
         </li>
         <li>
           <span class="status-indicator-dot dot-success"></span>
           <span>Australian Entertainment Content Distribution – OPERATIONAL</span>
-        </li>
-        <li>
-          <span class="status-indicator-dot dot-warning"></span>
-          <span>Burns Peak Equipment Upgrade – Deferred until tomorrow (high winds)</span>
         </li>
       </ul>
 
       <div class="what-doing">
         <h4>What We're Doing</h4>
         <ul>
-          <li>All core services (Internet, MetroE L2, Sydney traffic) fully operational</li>
-          <li>Primary fibre connection stable</li>
-          <li>Burns Peak equipment upgrade deferred until tomorrow due to high winds</li>
-          <li>Monitoring all links for optimal performance</li>
+          <li>Primary fibre and fibre MetroE services fully operational</li>
+          <li>Tower climb and equipment installation at Burns Peak commencing 12:00 today</li>
+          <li>WISP MetroE connections will be offline 12:00-14:00 PGT for installation</li>
+          <li>Advance notifications sent to affected sites: Gerehu, 2Mile, Konedobu, Motukea, Deugro, Tubuseria</li>
         </ul>
       </div>
 
@@ -352,6 +352,8 @@
       <div class="changelog-box">
         <p>Changelog Preview</p>
         <div id="changelog">
+          <div>v2026-06-23-01 | 11:22 PGT | Active Outage – WISP MetroE outage window 12:00-14:00 today for tower climb</div>
+          <div>v2026-06-22-05 | 16:30 PGT | Active Outage – Scheduled tower climb and equipment installation at Burns Peak</div>
           <div>v2026-06-22-04 | 16:25 PGT | Monitoring / Partial – Burns Peak work deferred due to high winds</div>
           <div>v2026-06-22-03 | 18:00 PGT | Monitoring / Partial – Fibre restored, services operational</div>
           <div>v2026-06-22-02 | 16:45 PGT | Active Outage – Technicians on site, Sydney link restored</div>
@@ -365,8 +367,8 @@
   </main>
 
   <script>
-    let versionCounter = 4;
-    let changelog = ['v2026-06-22-04 | 16:25 PGT | Monitoring / Partial – Burns Peak work deferred due to high winds', 'v2026-06-22-03 | 18:00 PGT | Monitoring / Partial – Fibre restored, services operational, redundancy in progress', 'v2026-06-22-02 | 16:45 PGT | Active Outage – Technicians on site, Sydney link restored', 'v2026-06-22-01 | 14:32 PGT | Active Outage'];
+    let versionCounter = 1;
+    let changelog = ['v2026-06-23-01 | 11:22 PGT | Active Outage – WISP MetroE outage window 12:00-14:00 today for tower climb', 'v2026-06-22-05 | 16:30 PGT | Active Outage – Scheduled tower climb and equipment installation at Burns Peak', 'v2026-06-22-04 | 16:25 PGT | Monitoring / Partial – Burns Peak work deferred due to high winds', 'v2026-06-22-03 | 18:00 PGT | Monitoring / Partial – Fibre restored, services operational, redundancy in progress', 'v2026-06-22-02 | 16:45 PGT | Active Outage – Technicians on site, Sydney link restored', 'v2026-06-22-01 | 14:32 PGT | Active Outage'];
 
     function publishUpdate() {
       const status = document.getElementById('status-select').value;
